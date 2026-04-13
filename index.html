@@ -1,0 +1,734 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Dilli S — Java / C++ / C#, trading &amp; messaging (Kafka, IBM MQ, TIBCO).">
+    <title>Dilli S | Resume</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,400;0,14..32,500;0,14..32,600;0,14..32,700;1,14..32,400&family=Source+Code+Pro:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-deep: #06080d;
+            --bg: #0c1017;
+            --surface: #121826;
+            --glass-bg: rgba(15, 23, 42, 0.45);
+            --glass-bg-strong: rgba(15, 23, 42, 0.62);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --glass-border-bright: rgba(255, 255, 255, 0.16);
+            --glass-highlight: rgba(255, 255, 255, 0.06);
+            --border: rgba(148, 163, 184, 0.12);
+            --text: #e8edf5;
+            --muted: #94a3b8;
+            --dim: #64748b;
+            --accent: #38bdf8;
+            --accent-soft: rgba(56, 189, 248, 0.15);
+            /* no purple palette */
+            --violet: var(--accent);
+            --violet-soft: var(--accent-soft);
+            --prompt: #fbbf77;
+            --code: #7dd3fc;
+            --blur-nav: 20px;
+            --blur-panel: 18px;
+        }
+
+        * { box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            background: var(--bg-deep);
+            color: var(--text);
+            font-family: 'Inter', system-ui, sans-serif;
+            font-size: 1rem;
+            line-height: 1.55;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            user-select: none;
+            -webkit-user-select: none;
+        }
+
+        /* Color blobs + grid — glass reads best on layered depth */
+        .page-bg {
+            position: fixed;
+            inset: 0;
+            z-index: -1;
+            overflow: hidden;
+            background: var(--bg-deep);
+        }
+        .page-bg::before {
+            content: '';
+            position: absolute;
+            inset: -20%;
+            background:
+                radial-gradient(circle at 20% 30%, rgba(56, 189, 248, 0.32) 0%, transparent 42%),
+                radial-gradient(circle at 85% 20%, rgba(14, 165, 233, 0.22) 0%, transparent 40%),
+                radial-gradient(circle at 70% 75%, rgba(56, 189, 248, 0.16) 0%, transparent 42%),
+                radial-gradient(circle at 10% 85%, rgba(34, 211, 238, 0.12) 0%, transparent 40%);
+            filter: blur(2px);
+        }
+        .page-bg::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image: linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+            background-size: 56px 56px;
+            mask-image: linear-gradient(to bottom, black 0%, rgba(0,0,0,0.4) 70%, transparent 100%);
+        }
+        /* Professional animation: subtle scroll-reveal */
+        html.js section.panel {
+            opacity: 0;
+            transform: translateY(10px);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+        html.js section.panel.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        @media (prefers-reduced-motion: reduce) {
+            html.js section.panel {
+                opacity: 1;
+                transform: none;
+                transition: none;
+            }
+        }
+
+        .shell {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 1.25rem 4rem;
+        }
+
+        /* Nav — glass strip */
+        .top-nav {
+            position: sticky;
+            top: 0.75rem;
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            padding: 0.85rem 1.15rem;
+            margin: 0 -0.25rem 0.75rem;
+            background: var(--glass-bg-strong);
+            backdrop-filter: blur(var(--blur-nav)) saturate(1.35);
+            -webkit-backdrop-filter: blur(var(--blur-nav)) saturate(1.35);
+            border: 1px solid var(--glass-border);
+            border-radius: 14px;
+            box-shadow:
+                0 4px 24px rgba(0, 0, 0, 0.35),
+                inset 0 1px 0 var(--glass-highlight);
+        }
+        .brand {
+            font-family: 'Source Code Pro', ui-monospace, monospace;
+            font-weight: 600;
+            font-size: 0.95rem;
+            color: var(--text);
+            text-decoration: none;
+            letter-spacing: -0.02em;
+        }
+        .brand span { color: var(--accent); }
+        .nav-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.35rem 1rem;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+        .nav-links a {
+            color: var(--muted);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+        .nav-links a:hover { color: var(--accent); }
+        .nav-links a.nav-github {
+            color: var(--accent);
+            border-bottom: 1px solid rgba(56, 189, 248, 0.35);
+        }
+        .nav-links a.nav-github:hover { color: #7dd3fc; border-bottom-color: var(--accent); }
+
+        /* Hero */
+        .hero {
+            padding: 2.5rem 0 3rem;
+            text-align: center;
+            position: relative;
+        }
+        .hero-glass {
+            display: inline-block;
+            width: 100%;
+            max-width: 640px;
+            padding: 2rem 1.5rem;
+            background: var(--glass-bg);
+            backdrop-filter: blur(var(--blur-panel)) saturate(1.4);
+            -webkit-backdrop-filter: blur(var(--blur-panel)) saturate(1.4);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            box-shadow:
+                0 8px 40px rgba(0, 0, 0, 0.3),
+                inset 0 1px 0 var(--glass-highlight);
+        }
+        .hero-kicker {
+            font-family: 'Source Code Pro', ui-monospace, monospace;
+            font-size: 0.8rem;
+            color: var(--dim);
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            margin-bottom: 0.75rem;
+        }
+        .hero h1 {
+            margin: 0 0 0.5rem;
+            font-size: clamp(2rem, 5vw, 2.75rem);
+            font-weight: 700;
+            letter-spacing: -0.03em;
+            line-height: 1.15;
+            background: linear-gradient(135deg, var(--text) 0%, #cbd5e1 40%, var(--accent) 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .hero-tagline {
+            font-size: 1.02rem;
+            color: var(--muted);
+            max-width: min(42rem, 100%);
+            margin: 0 auto 1.5rem;
+            line-height: 1.65;
+        }
+        .hero-tagline strong { color: #e2e8f0; font-weight: 600; }
+        .hero-pills {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+        .hero-pills span {
+            font-family: 'Source Code Pro', ui-monospace, monospace;
+            font-size: 0.75rem;
+            padding: 0.4rem 0.85rem;
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.06);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border: 1px solid var(--glass-border);
+            color: var(--code);
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
+        }
+        .hero-actions {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 0.6rem;
+            margin-top: 1.1rem;
+        }
+        .hero-actions a {
+            font-family: 'Source Code Pro', ui-monospace, monospace;
+            font-size: 0.82rem;
+            padding: 0.55rem 0.9rem;
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            background: rgba(255, 255, 255, 0.06);
+            color: var(--text);
+            text-decoration: none;
+            border-bottom: none;
+            transition: transform 0.15s ease, border-color 0.2s ease, background 0.2s ease;
+        }
+        .hero-actions a:hover {
+            transform: translateY(-1px);
+            border-color: rgba(56, 189, 248, 0.28);
+            background: rgba(56, 189, 248, 0.08);
+        }
+        .hero-actions a.primary {
+            background: rgba(56, 189, 248, 0.12);
+            border-color: rgba(56, 189, 248, 0.35);
+        }
+
+        /* Terminal lines inside panels */
+        .cmd-line {
+            font-family: 'Source Code Pro', ui-monospace, monospace;
+            font-size: 0.82rem;
+            margin-bottom: 0.5rem;
+        }
+        .cmd-line .prompt { color: var(--prompt); }
+        .cmd-line .cmd { color: var(--code); }
+
+        section.panel {
+            background: var(--glass-bg);
+            backdrop-filter: blur(var(--blur-panel)) saturate(1.35);
+            -webkit-backdrop-filter: blur(var(--blur-panel)) saturate(1.35);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            padding: 1.35rem 1.5rem;
+            margin-bottom: 1.25rem;
+            box-shadow:
+                0 8px 32px rgba(0, 0, 0, 0.28),
+                inset 0 1px 0 var(--glass-highlight);
+            transition: border-color 0.25s, box-shadow 0.25s;
+        }
+        section.panel:hover {
+            border-color: var(--glass-border-bright);
+            box-shadow:
+                0 12px 40px rgba(0, 0, 0, 0.32),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+        }
+        section.panel h2.section-title {
+            font-size: 0.72rem;
+            font-weight: 600;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: #cbd5e1;
+            margin: 0 0 1rem;
+            padding-bottom: 0.6rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .output {
+            color: var(--text);
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+        .output.dim {
+            color: var(--dim);
+            font-family: 'Source Code Pro', ui-monospace, monospace;
+            font-size: 0.8rem;
+        }
+        .output h3 {
+            color: var(--accent);
+            font-size: 0.95rem;
+            font-weight: 600;
+            margin: 1rem 0 0.4rem;
+            padding-bottom: 0.25rem;
+            border-bottom: 1px dashed rgba(255, 255, 255, 0.1);
+        }
+        .output h3:first-child { margin-top: 0; }
+
+        .job { margin-top: 1rem; }
+        .job:first-child { margin-top: 0; }
+        .job-title { color: var(--code); font-weight: 600; }
+        .job-meta { color: var(--muted); font-size: 0.9rem; }
+        .output ul { margin: 0.4rem 0 0 1.1rem; padding: 0; }
+        .output li { margin-bottom: 0.4rem; color: #cbd5e1; }
+
+        a {
+            color: var(--accent);
+            text-decoration: none;
+            border-bottom: 1px solid rgba(56, 189, 248, 0.35);
+            transition: color 0.2s, border-color 0.2s;
+        }
+        a:hover {
+            color: #7dd3fc;
+            border-bottom-color: var(--accent);
+        }
+
+        .cursor {
+            display: inline-block;
+            width: 8px;
+            height: 18px;
+            background: var(--accent);
+            border-radius: 1px;
+            animation: blink 1.1s infinite;
+            vertical-align: middle;
+            margin-left: 2px;
+        }
+        @keyframes blink { 50% { opacity: 0; } }
+
+        /* AI project cards */
+        .projects-intro {
+            color: var(--muted);
+            font-size: 0.95rem;
+            margin: 0 0 1.25rem;
+            line-height: 1.6;
+        }
+        .projects-intro strong { color: var(--text); }
+        .projects-grid {
+            display: grid;
+            gap: 1rem;
+        }
+        @media (min-width: 640px) {
+            .projects-grid { grid-template-columns: 1fr 1fr; }
+        }
+        .project-card {
+            padding: 1.1rem 1.2rem;
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+            transition: border-color 0.2s, background 0.2s;
+        }
+        .project-card:hover {
+            border-color: rgba(56, 189, 248, 0.25);
+            background: rgba(56, 189, 248, 0.06);
+        }
+        .project-card h3 {
+            margin: 0 0 0.35rem;
+            font-size: 1.05rem;
+            font-weight: 600;
+            color: var(--code);
+            border: none;
+            padding: 0;
+        }
+        .project-card .project-meta {
+            font-family: 'Source Code Pro', ui-monospace, monospace;
+            font-size: 0.72rem;
+            color: var(--dim);
+            margin-bottom: 0.65rem;
+        }
+        .project-card p {
+            margin: 0 0 0.75rem;
+            font-size: 0.88rem;
+            color: #cbd5e1;
+            line-height: 1.5;
+        }
+        .tag-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.35rem;
+            margin-bottom: 0.75rem;
+        }
+        .tag-row span {
+            font-family: 'Source Code Pro', ui-monospace, monospace;
+            font-size: 0.65rem;
+            padding: 0.2rem 0.45rem;
+            border-radius: 4px;
+            background: rgba(56, 189, 248, 0.12);
+            color: #bae6fd;
+            border: 1px solid rgba(56, 189, 248, 0.22);
+        }
+        .project-card .repo-link {
+            font-family: 'Source Code Pro', ui-monospace, monospace;
+            font-size: 0.78rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.35rem;
+            border-bottom: none;
+            padding: 0.35rem 0;
+        }
+        .project-card .repo-link::after {
+            content: '↗';
+            font-size: 0.85em;
+            opacity: 0.7;
+        }
+        .github-cta {
+            margin-top: 1.35rem;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 0.75rem;
+        }
+        .github-cta p {
+            margin: 0;
+            font-size: 0.88rem;
+            color: var(--muted);
+        }
+        .github-cta a.btn-github {
+            font-family: 'Source Code Pro', ui-monospace, monospace;
+            font-size: 0.82rem;
+            padding: 0.55rem 1rem;
+            border-radius: 8px;
+            background: rgba(56, 189, 248, 0.12);
+            border: 1px solid rgba(56, 189, 248, 0.28);
+            color: #e0f2fe;
+            border-bottom: none;
+        }
+        .github-cta a.btn-github:hover {
+            background: rgba(56, 189, 248, 0.18);
+            color: #fff;
+        }
+
+        .footer-bar {
+            text-align: center;
+            margin-top: 0.5rem;
+            padding: 1.1rem 1.25rem;
+            font-size: 0.85rem;
+            color: var(--dim);
+            font-family: 'Source Code Pro', ui-monospace, monospace;
+            background: var(--glass-bg);
+            backdrop-filter: blur(14px) saturate(1.2);
+            -webkit-backdrop-filter: blur(14px) saturate(1.2);
+            border: 1px solid var(--glass-border);
+            border-radius: 12px;
+            box-shadow: inset 0 1px 0 var(--glass-highlight);
+        }
+
+        #shield {
+            position: fixed;
+            inset: 0;
+            z-index: 9999;
+            pointer-events: none;
+        }
+
+        @supports not ((backdrop-filter: blur(2px)) or (-webkit-backdrop-filter: blur(2px))) {
+            .top-nav,
+            .hero-glass,
+            section.panel,
+            .footer-bar {
+                background: rgba(18, 24, 38, 0.94);
+            }
+            .hero-pills span {
+                background: rgba(30, 41, 59, 0.9);
+            }
+            .project-card {
+                background: rgba(18, 24, 38, 0.95);
+            }
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="page-bg" aria-hidden="true"></div>
+<div id="shield" aria-hidden="true"></div>
+
+<div class="shell">
+
+    <header class="top-nav">
+        <a class="brand" href="#">dilli<span>@</span>portfolio</a>
+        <nav aria-label="Primary">
+            <ul class="nav-links">
+                <li><a href="#about">About</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#ai-projects">AI Projects</a></li>
+                <li><a href="#experience">Experience</a></li>
+                <li><a href="#education">Education</a></li>
+                <li><a href="#contact">Contact</a></li>
+                <li><a class="nav-github" href="https://github.com/dselva7" rel="noopener noreferrer" target="_blank" title="Open-source AI &amp; ML on GitHub">@dselva7</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <div class="hero-glass">
+            <p class="hero-kicker">Trading systems · Integration · Messaging</p>
+            <h1>Dilli S</h1>
+            <p class="hero-tagline"><strong>Java / C++ / C#</strong> across equities &amp; trading platforms. Strong in <strong>enterprise messaging</strong> (Kafka/Confluent, IBM MQ, TIBCO EMS/RV) and exchange connectivity. Ex–VP Technology (Bank of America); currently Shell.</p>
+            <div class="hero-pills">
+                <span>Java · Spring Boot</span>
+                <span>Kafka · MQ · EMS/RV</span>
+                <span>FIX/FIXML · Trading</span>
+                <span>AWS · Azure · GCP</span>
+            </div>
+            <div class="hero-actions">
+                <a class="primary" href="#contact">Contact</a>
+                <a href="#experience">Experience</a>
+                <a href="https://github.com/dselva7" rel="noopener noreferrer" target="_blank">GitHub</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="panel" id="about">
+        <h2 class="section-title">About</h2>
+        <div class="cmd-line"><span class="prompt">visitor@portfolio:~$</span> <span class="cmd">cat summary.txt</span></div>
+        <div class="output" style="margin:0">
+            Senior engineer in <strong>trading and integration</strong>: Java, C++, C#; messaging (Kafka, IBM MQ, TIBCO). Worked at global banks, energy, and broker-dealers — delivery, production support, and architecture across APAC, EMEA, and Americas.
+        </div>
+    </section>
+
+    <section class="panel" id="skills">
+        <h2 class="section-title">Skills</h2>
+        <div class="cmd-line"><span class="prompt">visitor@portfolio:~$</span> <span class="cmd">cat skills.txt</span></div>
+        <div class="output">
+<strong>Languages</strong> — Java, C++, C#, Python, JavaScript, Dart · <strong>Frameworks</strong> — Spring Boot, J2EE, Hibernate, Flutter · <strong>Messaging</strong> — Kafka/Confluent, IBM MQ, TIBCO EMS/RV, ActiveMQ, JMS, FIX/FIXML · <strong>Data</strong> — Oracle, SQL Server, MongoDB, PL/SQL · <strong>Cloud / DevOps</strong> — Docker, Git, CI/CD, Azure, AWS, GCP · <strong>Other</strong> — REST/SOAP, EDI, Agile. <em>AI / ML:</em> see <a href="#ai-projects">GitHub</a>.
+        </div>
+    </section>
+
+    <section class="panel" id="ai-projects">
+        <h2 class="section-title">AI projects &amp; open source</h2>
+        <p class="projects-intro">Hands-on work in <strong>agentic systems</strong>, <strong>retrieval-augmented LLMs</strong>, <strong>quantitative ML</strong>, and <strong>reproducible AI infrastructure</strong>—published under <a href="https://github.com/dselva7" rel="noopener noreferrer" target="_blank">github.com/dselva7</a>. These repos complement enterprise integration experience with modern Python-first AI engineering.</p>
+        <div class="cmd-line"><span class="prompt">visitor@portfolio:~$</span> <span class="cmd">gh repo list dselva7 --limit 8</span></div>
+        <div class="projects-grid">
+            <article class="project-card">
+                <h3>agenticAI</h3>
+                <div class="project-meta">Stateful orchestration · production-minded agents</div>
+                <p>LangGraph-style agent graphs with <strong>persistent SQLite memory</strong>, durable state, and <strong>Model Context Protocol (MCP)</strong> for decoupled tools—suited for long-running workflows, checkpoints, and human-in-the-loop gates.</p>
+                <div class="tag-row">
+                    <span>Python</span><span>LangGraph</span><span>MCP</span><span>SQLite</span>
+                </div>
+                <a class="repo-link" href="https://github.com/Dselva7/agenticAI" rel="noopener noreferrer" target="_blank">github.com/Dselva7/agenticAI</a>
+            </article>
+            <article class="project-card">
+                <h3>RAGs</h3>
+                <div class="project-meta">Knowledge-grounded LLMs</div>
+                <p>Advanced <strong>RAG</strong> patterns including Self-RAG-style flows, <strong>vector persistence</strong>, and retrieval pipelines built with <strong>LangChain</strong> and <strong>ChromaDB</strong> for grounded, auditable answers over your own documents.</p>
+                <div class="tag-row">
+                    <span>LangChain</span><span>ChromaDB</span><span>Embeddings</span><span>Vectors</span>
+                </div>
+                <a class="repo-link" href="https://github.com/Dselva7/RAGs" rel="noopener noreferrer" target="_blank">github.com/Dselva7/RAGs</a>
+            </article>
+            <article class="project-card">
+                <h3>UdacityAITrading</h3>
+                <div class="project-meta">Quantitative finance &amp; signal ML</div>
+                <p><strong>Signal processing</strong>, risk-aware modeling, and <strong>alpha factor</strong> exploration on market-style data—aligned with Udacity’s AI-for-trading curriculum using <strong>Pandas</strong> and <strong>NumPy</strong> for reproducible research notebooks.</p>
+                <div class="tag-row">
+                    <span>Pandas</span><span>NumPy</span><span>Signals</span><span>Risk</span>
+                </div>
+                <a class="repo-link" href="https://github.com/Dselva7/UdacityAITrading" rel="noopener noreferrer" target="_blank">github.com/Dselva7/UdacityAITrading</a>
+            </article>
+            <article class="project-card">
+                <h3>DatascienceProjects</h3>
+                <div class="project-meta">ML · DL · NLP · CV</div>
+                <p>A structured library of notebooks and modules spanning <strong>NLP</strong> and transformers, <strong>computer vision</strong>, classical ML, and <strong>deep learning</strong> with <strong>TensorFlow</strong>, <strong>PyTorch</strong>, and OpenCV—useful as reference implementations and teaching artifacts.</p>
+                <div class="tag-row">
+                    <span>TensorFlow</span><span>PyTorch</span><span>NLP</span><span>CV</span>
+                </div>
+                <a class="repo-link" href="https://github.com/Dselva7/DatascienceProjects" rel="noopener noreferrer" target="_blank">github.com/Dselva7/DatascienceProjects</a>
+            </article>
+            <article class="project-card" style="grid-column: 1 / -1;">
+                <h3>Dockers</h3>
+                <div class="project-meta">AI/ML infrastructure as code</div>
+                <p><strong>Container images</strong> and compose-friendly setups to run notebooks and inference services consistently across laptops and CI—Bash-driven automation for <strong>scalable ML deployments</strong> without vendor lock-in.</p>
+                <div class="tag-row">
+                    <span>Docker</span><span>Compose</span><span>CI/CD</span><span>Bash</span>
+                </div>
+                <a class="repo-link" href="https://github.com/Dselva7/Dockers" rel="noopener noreferrer" target="_blank">github.com/Dselva7/Dockers</a>
+            </article>
+        </div>
+        <div class="github-cta">
+            <p>Also on this account: profile README, <a href="https://github.com/Dselva7/Cert" rel="noopener noreferrer" target="_blank">Cert</a> (credentials), and <a href="https://dselva7.github.io" rel="noopener noreferrer" target="_blank">dselva7.github.io</a> — 8 public repositories in total.</p>
+            <a class="btn-github" href="https://github.com/dselva7" rel="noopener noreferrer" target="_blank">All repos @dselva7</a>
+        </div>
+    </section>
+
+    <section class="panel" id="experience">
+        <h2 class="section-title">Experience</h2>
+        <div class="cmd-line"><span class="prompt">visitor@portfolio:~$</span> <span class="cmd">cat experience.log</span></div>
+        <div class="output">
+<div class="job"><div><span class="job-title">Senior Java Developer, and C# Developer</span></div><div class="job-meta">Shell Inc, USA · October 2022 – Present</div>
+<ul>
+<li>Provided in-house development and support for custom Java J2EE applications, integrating Spring Boot with Active MQ, TIBCO EMS and TIBCO RV.</li>
+<li>Provided the migration plan for TIBCO SDK, TIBCO EMS, TIBCO RV migration to Apache Confluent Kafka.</li>
+<li>Designed and enhanced functionality for proprietary trade capture platforms for ICE, CME Clearport, Globex feeds using Java, TIBCO SDK, TIBCO RV, FIX/FIXML, J2EE, Spring Boot, Active MQ, TIBCO EMS for deal management and source to risk management system Endur.</li>
+<li>Worked with other infrastructure and development teams within the firm to create and publish optimal integration diagrams, component diagrams and deployment diagrams.</li>
+<li>Collaborated with cross-functional stakeholders to build trust, understand goals, and deliver solutions addressing operational constraints, risks, and evolving business needs.</li>
+<li>Provided support from the development team to solve complex technical issues, as well as providing guidance to technical teams in troubleshooting and problem-solving in the production environment.</li>
+</ul>
+
+<div class="job"><div><span class="job-title">System Architect and Flutter, IoT Developer</span></div><div class="job-meta">Non-Profit Startup · May 2022 – September 2022 · USA</div>
+<ul>
+<li>Architected an MQTT-based messaging layer to connect PNI IoT parking sensors (LoRa/TTN) to a Google Cloud backend, enabling real-time data streaming of parking spots.</li>
+<li>Built a Flutter and Dart frontend to visualize parking availability via a mobile app, improving user decision-making by 30%.</li>
+<li>Led cross-functional teams in Agile development, from IoT device configuration to CI/CD pipeline implementation.</li>
+</ul>
+
+<div class="job"><div><span class="job-title">Senior Messaging IT Analyst and Senior C++ Developer</span></div><div class="job-meta">Phillip Securities, Singapore · December 2021 – April 2022</div>
+<ul>
+<li>Developed and maintained an IBM MQ messaging layer to connect Order Management, Risk Management, and Price Feed systems, ensuring reliable and secure data flow across the trading platform.</li>
+<li>Ensured all code and processes adhered to software development best practices, industry standards, and regulatory requirements.</li>
+<li>Ensured designed and built systems align with firm and industry security, data, and compliance standards, and responded to audits as needed.</li>
+<li>Consulted with internal stakeholders (traders, compliance, IT) to gather requirements, define project scope, and deliver solutions that align with business and operational goals.</li>
+<li>Developer production support for the application as needed in the live environment, connecting to the Singapore Stock Exchange as well as other global stock exchanges.</li>
+</ul>
+
+<div class="job"><div><span class="job-title">Vice President, Technology</span></div><div class="job-meta">Bank of America, Singapore · July 2013 – April 2021</div>
+<ul>
+<li>Designed, built, and deployed TIBCO EMS, TIBCO RV, and IBM MQ messaging components for global application teams covering seven countries in the APAC region covering 80% of firmwide messaging platform needs.</li>
+<li>Managed a team of two onsite and five offshore operations team members for design, implement and testing activities.</li>
+<li>Collaborated with cross-functional teams like market data, algo, workflow, exchange connectivity, client connectivity, front, middle, and back office from design through go-live with zero defects in messaging infrastructure and components change implementation.</li>
+<li>Ensured system compliance with bank and industry security and data standards, including regulatory audit support.</li>
+<li>Gathered application requirements and architected messaging solutions to ensure high reliability, availability, throughput, and low latency.</li>
+<li>Led and participated in end-to-end testing and go-live activities, data center migrations, business continuity plans and disaster recovery tests of bank-wide TIBCO infrastructure in seven countries in the APAC region.</li>
+<li>Benchmarked and evaluated performance of low latency messaging products across different hardware and software setups, publishing results to guide internal team decisions on using TIBCO.</li>
+<li>Worked with other infrastructure and development teams within the bank to create and publish optimal integration diagrams, component diagrams and deployment diagrams as part of the data center migration and new components setup across APAC.</li>
+<li>Ensured security and audit compliance in all middleware deployments, addressing regulatory and operational requirements.</li>
+<li>Provided SME and infrastructure owner level support for complex issue resolution in on-call and live production environment connecting to various electronic stock exchanges in primarily supporting the APAC region and EMEA and Americas regions as needed.</li>
+</ul>
+
+<div class="job"><div><span class="job-title">Senior IT Analyst (C# Developer)</span></div><div class="job-meta">Barclays Capital, Singapore · July 2011 – June 2013</div>
+<ul>
+<li>Evaluated planned business changes for feasibility and impact, ensuring alignment with technical and operational objectives.</li>
+<li>Implemented new changes by following all phases of the SDLC and full lifecycle implementations using Waterfall and Agile methodologies.</li>
+<li>Consulted with Credit Risk management representatives across APAC, EMEA, and Americas, and distributed technology teams, to plan, test, and implement system changes.</li>
+<li>Provided technical analysis and troubleshooting for Mark to Market (MTM) breaks, verifying system behavior against design and technical documentation—demonstrating strong problem-solving and system integration skills required for TIBCO middleware management.</li>
+<li>Ensured designed and built systems with bank and industry level security and compliance and to audits as needed.</li>
+<li>Advised Credit Risk Engine users on potential MTM breaks caused by code bugs, facilitating clear communication between technical teams and business stakeholders.</li>
+<li>Provided developer production support for applications as needed in the live environment for risk calculation issues as needed.</li>
+</ul>
+
+<div class="job"><div><span class="job-title">C# and Java Developer</span></div><div class="job-meta">Cargill Asia Pacific Ltd, Singapore · March 2010 – August 2010</div>
+<ul>
+<li>Managed application integrations and production middleware instances, ensuring reliability and uptime.</li>
+<li>Utilized a broad technical stack including C#, Java, .NET, SQL Server, Linux, Windows, Perforce, Autosys, and EDI/Trading Networks.</li>
+<li>Maintained and monitored integration infrastructures using TIBCO BusinessWorks (BW), TIBCO EMS, TIBCO RV, webMethods Integration Server, and Active MQ.</li>
+<li>Initiated and implemented process improvements for operational services, demonstrating continuous improvement.</li>
+<li>Ensured designed and built systems align with firm and industry level security, data, and compliance standards, and respond to audits as needed.</li>
+<li>Leveraged TIBCO Hawk for system monitoring and issue detection for robust monitoring and operational excellence.</li>
+<li>Provided developer production support for application as needed in the live environment for integrations issues covering the entire globe.</li>
+</ul>
+
+<div class="job"><div><span class="job-title">Middleware Architect and Developer</span></div><div class="job-meta">UBS, Singapore · December 2003 – February 2010</div>
+<ul>
+<li>Designed, built, and managed TIBCO EMS, TIBCO RV, IBM MQ, and webMethods Broker components for mission-critical trade routing system for the bank including exchange connectivity for order flow and direct market access covering 70% of banking messaging platform covering mostly Europe region.</li>
+<li>Presented messaging middleware capabilities to a wider audience, onboarding new clients and promoting standardized infrastructure solutions.</li>
+<li>Conducted performance testing and benchmarking on MQ and EMS infrastructures, publishing baseline metrics to application owners to inform current and future design decisions with 0% change and implementation issues.</li>
+<li>Worked with other infrastructure and development teams within the bank to create and publish optimal integration diagrams, component diagrams and deployment diagrams as part of the data center migration and new components setup across EMEA.</li>
+<li>Ensured designed and built systems align with bank and industry security, data, and compliance standards, and respond to audits as needed.</li>
+<li>Assisted users in migrating away from end-of-life (EOL) technologies, driving modernization and system upgrades, to align with continuous infrastructure improvement goals.</li>
+<li>Provided L2 &amp; L3 SME and infrastructure owner level support for complex issue resolution in on-call and live production environment connecting to various electronic stock exchanges in primarily supporting EMEA region and APAC and Americas as needed.</li>
+</ul>
+
+<div class="job"><div><span class="job-title">C++ Developer, Module Team Lead and Onsite System Test Engineer</span></div><div class="job-meta">NEC, Japan · Polaris, India · April 2000 – November 2003</div>
+<ul>
+<li>Led and managed teams of 5–6 developers, testers, and build/release engineers.</li>
+<li>Oversaw the full software development lifecycle, including design, coding, code reviews, unit testing, module testing, integration testing, build, and release.</li>
+<li>Served as system integration test engineer in Tokyo, working directly with NEC Financial Business teams during on-site product integration testing.</li>
+<li>Developed and delivered proof-of-concept of 15+ transaction modules for the Global Banking System (GBS) base product.</li>
+<li>Led the development and integration of 100+ transaction modules for Yachiyo Bank’s BankingWeb 21 (GBS v1.6).</li>
+<li>Ensured designed and built systems are in line with bank and industry level security, data and compliance level and answer to audits as needed.</li>
+</ul>
+        </div>
+    </section>
+
+    <section class="panel" id="education">
+        <h2 class="section-title">Education &amp; certifications</h2>
+        <div class="cmd-line"><span class="prompt">visitor@portfolio:~$</span> <span class="cmd">cat education.txt</span></div>
+        <div class="output"><strong>B.Eng.</strong> Computer Science &amp; Engineering — University of Madras · <strong>M.S.</strong> IT in Business — SMU, Singapore
+
+<strong>Certs:</strong> AWS AI Practitioner (2025) · Udacity AI / AI Trading (2020) · IBM MQ Professional (2007)</div>
+    </section>
+
+    <section class="panel" id="contact">
+        <h2 class="section-title">Contact</h2>
+        <div class="cmd-line"><span class="prompt">visitor@portfolio:~$</span> <span class="cmd">contact --get</span></div>
+        <div class="output">Email: <a href="mailto:csdb2011@outlook.com">csdb2011@outlook.com</a>
+Phone: <a href="tel:+13312304489">331-230-4489</a>
+GitHub: <a href="https://github.com/dselva7" rel="noopener noreferrer" target="_blank">github.com/dselva7</a></div>
+        <div class="cmd-line" style="margin-top:1rem"><span class="prompt">visitor@portfolio:~$</span> <span class="cursor" aria-hidden="true"></span></div>
+    </section>
+
+    <footer class="footer-bar">© 2026 Dilli S</footer>
+</div>
+
+<script>
+    document.addEventListener('contextmenu', function (e) { e.preventDefault(); });
+    document.addEventListener('keydown', function (e) {
+        if (e.ctrlKey && (e.key === 'c' || e.key === 'u' || e.key === 'i' || e.key === 'C' || e.key === 'U' || e.key === 'I')) {
+            e.preventDefault();
+            return false;
+        }
+    });
+    console.log('Portfolio: Dilli S · 2026');
+
+    document.documentElement.classList.add('js');
+    (function () {
+        if (!('IntersectionObserver' in window)) return;
+        var panels = document.querySelectorAll('section.panel');
+        if (!panels.length) return;
+        var io = new IntersectionObserver(function (entries) {
+            entries.forEach(function (entry) {
+                if (!entry.isIntersecting) return;
+                entry.target.classList.add('is-visible');
+                io.unobserve(entry.target);
+            });
+        }, { rootMargin: '0px 0px -10% 0px', threshold: 0.12 });
+        panels.forEach(function (p) { io.observe(p); });
+    })();
+</script>
+</body>
+</html>
