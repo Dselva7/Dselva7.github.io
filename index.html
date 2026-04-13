@@ -717,9 +717,12 @@ GitHub: <a href="https://github.com/dselva7" rel="noopener noreferrer" target="_
 
     document.documentElement.classList.add('js');
     (function () {
-        if (!('IntersectionObserver' in window)) return;
         var panels = document.querySelectorAll('section.panel');
         if (!panels.length) return;
+        if (!('IntersectionObserver' in window)) {
+            panels.forEach(function (p) { p.classList.add('is-visible'); });
+            return;
+        }
         var io = new IntersectionObserver(function (entries) {
             entries.forEach(function (entry) {
                 if (!entry.isIntersecting) return;
