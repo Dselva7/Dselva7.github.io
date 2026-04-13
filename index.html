@@ -78,24 +78,6 @@
             background-size: 56px 56px;
             mask-image: linear-gradient(to bottom, black 0%, rgba(0,0,0,0.4) 70%, transparent 100%);
         }
-        /* Professional animation: subtle scroll-reveal */
-        html.js section.panel {
-            opacity: 0;
-            transform: translateY(10px);
-            transition: opacity 0.5s ease, transform 0.5s ease;
-        }
-        html.js section.panel.is-visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        @media (prefers-reduced-motion: reduce) {
-            html.js section.panel {
-                opacity: 1;
-                transform: none;
-                transition: none;
-            }
-        }
-
         .shell {
             max-width: 900px;
             margin: 0 auto;
@@ -600,88 +582,80 @@
         <h2 class="section-title">Experience</h2>
         <div class="cmd-line"><span class="prompt">visitor@portfolio:~$</span> <span class="cmd">cat experience.log</span></div>
         <div class="output">
-<div class="job"><div><span class="job-title">Senior Java Developer, and C# Developer</span></div><div class="job-meta">Shell Inc, USA · October 2022 – Present</div>
-<ul>
-<li>Provided in-house development and support for custom Java J2EE applications, integrating Spring Boot with Active MQ, TIBCO EMS and TIBCO RV.</li>
-<li>Provided the migration plan for TIBCO SDK, TIBCO EMS, TIBCO RV migration to Apache Confluent Kafka.</li>
-<li>Designed and enhanced functionality for proprietary trade capture platforms for ICE, CME Clearport, Globex feeds using Java, TIBCO SDK, TIBCO RV, FIX/FIXML, J2EE, Spring Boot, Active MQ, TIBCO EMS for deal management and source to risk management system Endur.</li>
-<li>Worked with other infrastructure and development teams within the firm to create and publish optimal integration diagrams, component diagrams and deployment diagrams.</li>
-<li>Collaborated with cross-functional stakeholders to build trust, understand goals, and deliver solutions addressing operational constraints, risks, and evolving business needs.</li>
-<li>Provided support from the development team to solve complex technical issues, as well as providing guidance to technical teams in troubleshooting and problem-solving in the production environment.</li>
-</ul>
+            <div class="job">
+                <div><span class="job-title">Senior Java Developer, and C# Developer</span></div>
+                <div class="job-meta">Shell Inc, USA · October 2022 – Present</div>
+                <ul>
+                    <li>Provided in-house development and support for custom Java J2EE applications, integrating Spring Boot with Active MQ, TIBCO EMS and TIBCO RV.</li>
+                    <li>Designed and enhanced functionality for proprietary trade capture platforms for ICE, CME Clearport, and Globex feeds.</li>
+                    <li>Managed migration planning for TIBCO SDK/EMS/RV to Apache Confluent Kafka.</li>
+                    <li>Collaborated with cross-functional stakeholders to deliver solutions addressing operational constraints.</li>
+                </ul>
+            </div>
 
-<div class="job"><div><span class="job-title">System Architect and Flutter, IoT Developer</span></div><div class="job-meta">Non-Profit Startup · May 2022 – September 2022 · USA</div>
-<ul>
-<li>Architected an MQTT-based messaging layer to connect PNI IoT parking sensors (LoRa/TTN) to a Google Cloud backend, enabling real-time data streaming of parking spots.</li>
-<li>Built a Flutter and Dart frontend to visualize parking availability via a mobile app, improving user decision-making by 30%.</li>
-<li>Led cross-functional teams in Agile development, from IoT device configuration to CI/CD pipeline implementation.</li>
-</ul>
+            <div class="job">
+                <div><span class="job-title">System Architect and Flutter, IoT Developer</span></div>
+                <div class="job-meta">Non-Profit Startup · May 2022 – September 2022 · USA</div>
+                <ul>
+                    <li>Architected an MQTT-based messaging layer to connect PNI IoT parking sensors to Google Cloud backend.</li>
+                    <li>Built Flutter/Dart frontend to visualize parking availability, improving decision-making by 30%.</li>
+                </ul>
+            </div>
 
-<div class="job"><div><span class="job-title">Senior Messaging IT Analyst and Senior C++ Developer</span></div><div class="job-meta">Phillip Securities, Singapore · December 2021 – April 2022</div>
-<ul>
-<li>Developed and maintained an IBM MQ messaging layer to connect Order Management, Risk Management, and Price Feed systems, ensuring reliable and secure data flow across the trading platform.</li>
-<li>Ensured all code and processes adhered to software development best practices, industry standards, and regulatory requirements.</li>
-<li>Ensured designed and built systems align with firm and industry security, data, and compliance standards, and responded to audits as needed.</li>
-<li>Consulted with internal stakeholders (traders, compliance, IT) to gather requirements, define project scope, and deliver solutions that align with business and operational goals.</li>
-<li>Developer production support for the application as needed in the live environment, connecting to the Singapore Stock Exchange as well as other global stock exchanges.</li>
-</ul>
+            <div class="job">
+                <div><span class="job-title">Senior Messaging IT Analyst and Senior C++ Developer</span></div>
+                <div class="job-meta">Phillip Securities, Singapore · Dec 2021 – Apr 2022</div>
+                <ul>
+                    <li>Developed and maintained IBM MQ messaging layer connecting Order Management and Risk systems.</li>
+                    <li>Provided production support for exchange connectivity to SGX and global stock exchanges.</li>
+                </ul>
+            </div>
 
-<div class="job"><div><span class="job-title">Vice President, Technology</span></div><div class="job-meta">Bank of America, Singapore · July 2013 – April 2021</div>
-<ul>
-<li>Designed, built, and deployed TIBCO EMS, TIBCO RV, and IBM MQ messaging components for global application teams covering seven countries in the APAC region covering 80% of firmwide messaging platform needs.</li>
-<li>Managed a team of two onsite and five offshore operations team members for design, implement and testing activities.</li>
-<li>Collaborated with cross-functional teams like market data, algo, workflow, exchange connectivity, client connectivity, front, middle, and back office from design through go-live with zero defects in messaging infrastructure and components change implementation.</li>
-<li>Ensured system compliance with bank and industry security and data standards, including regulatory audit support.</li>
-<li>Gathered application requirements and architected messaging solutions to ensure high reliability, availability, throughput, and low latency.</li>
-<li>Led and participated in end-to-end testing and go-live activities, data center migrations, business continuity plans and disaster recovery tests of bank-wide TIBCO infrastructure in seven countries in the APAC region.</li>
-<li>Benchmarked and evaluated performance of low latency messaging products across different hardware and software setups, publishing results to guide internal team decisions on using TIBCO.</li>
-<li>Worked with other infrastructure and development teams within the bank to create and publish optimal integration diagrams, component diagrams and deployment diagrams as part of the data center migration and new components setup across APAC.</li>
-<li>Ensured security and audit compliance in all middleware deployments, addressing regulatory and operational requirements.</li>
-<li>Provided SME and infrastructure owner level support for complex issue resolution in on-call and live production environment connecting to various electronic stock exchanges in primarily supporting the APAC region and EMEA and Americas regions as needed.</li>
-</ul>
+            <div class="job">
+                <div><span class="job-title">Vice President, Technology</span></div>
+                <div class="job-meta">Bank of America, Singapore · July 2013 – April 2021</div>
+                <ul>
+                    <li>Deployed TIBCO EMS, RV, and IBM MQ infrastructure for APAC application teams across 7 countries.</li>
+                    <li>Led data center migrations and disaster recovery tests for bank-wide messaging infrastructure.</li>
+                    <li>Benchmarked low-latency messaging products to guide hardware/software stack decisions.</li>
+                </ul>
+            </div>
 
-<div class="job"><div><span class="job-title">Senior IT Analyst (C# Developer)</span></div><div class="job-meta">Barclays Capital, Singapore · July 2011 – June 2013</div>
-<ul>
-<li>Evaluated planned business changes for feasibility and impact, ensuring alignment with technical and operational objectives.</li>
-<li>Implemented new changes by following all phases of the SDLC and full lifecycle implementations using Waterfall and Agile methodologies.</li>
-<li>Consulted with Credit Risk management representatives across APAC, EMEA, and Americas, and distributed technology teams, to plan, test, and implement system changes.</li>
-<li>Provided technical analysis and troubleshooting for Mark to Market (MTM) breaks, verifying system behavior against design and technical documentation—demonstrating strong problem-solving and system integration skills required for TIBCO middleware management.</li>
-<li>Ensured designed and built systems with bank and industry level security and compliance and to audits as needed.</li>
-<li>Advised Credit Risk Engine users on potential MTM breaks caused by code bugs, facilitating clear communication between technical teams and business stakeholders.</li>
-<li>Provided developer production support for applications as needed in the live environment for risk calculation issues as needed.</li>
-</ul>
+            <div class="job">
+                <div><span class="job-title">Senior IT Analyst (C# Developer)</span></div>
+                <div class="job-meta">Barclays Capital, Singapore · July 2011 – June 2013</div>
+                <ul>
+                    <li>Evaluated business changes for feasibility and impact on Credit Risk engines.</li>
+                    <li>Troubleshot Mark to Market (MTM) breaks and verified system behavior against technical design.</li>
+                </ul>
+            </div>
 
-<div class="job"><div><span class="job-title">C# and Java Developer</span></div><div class="job-meta">Cargill Asia Pacific Ltd, Singapore · March 2010 – August 2010</div>
-<ul>
-<li>Managed application integrations and production middleware instances, ensuring reliability and uptime.</li>
-<li>Utilized a broad technical stack including C#, Java, .NET, SQL Server, Linux, Windows, Perforce, Autosys, and EDI/Trading Networks.</li>
-<li>Maintained and monitored integration infrastructures using TIBCO BusinessWorks (BW), TIBCO EMS, TIBCO RV, webMethods Integration Server, and Active MQ.</li>
-<li>Initiated and implemented process improvements for operational services, demonstrating continuous improvement.</li>
-<li>Ensured designed and built systems align with firm and industry level security, data, and compliance standards, and respond to audits as needed.</li>
-<li>Leveraged TIBCO Hawk for system monitoring and issue detection for robust monitoring and operational excellence.</li>
-<li>Provided developer production support for application as needed in the live environment for integrations issues covering the entire globe.</li>
-</ul>
+            <div class="job">
+                <div><span class="job-title">C# and Java Developer</span></div>
+                <div class="job-meta">Cargill Asia Pacific Ltd, Singapore · March 2010 – Aug 2010</div>
+                <ul>
+                    <li>Managed integrations using TIBCO BusinessWorks (BW), EMS, RV, and webMethods.</li>
+                    <li>Implemented TIBCO Hawk for robust system monitoring and issue detection.</li>
+                </ul>
+            </div>
 
-<div class="job"><div><span class="job-title">Middleware Architect and Developer</span></div><div class="job-meta">UBS, Singapore · December 2003 – February 2010</div>
-<ul>
-<li>Designed, built, and managed TIBCO EMS, TIBCO RV, IBM MQ, and webMethods Broker components for mission-critical trade routing system for the bank including exchange connectivity for order flow and direct market access covering 70% of banking messaging platform covering mostly Europe region.</li>
-<li>Presented messaging middleware capabilities to a wider audience, onboarding new clients and promoting standardized infrastructure solutions.</li>
-<li>Conducted performance testing and benchmarking on MQ and EMS infrastructures, publishing baseline metrics to application owners to inform current and future design decisions with 0% change and implementation issues.</li>
-<li>Worked with other infrastructure and development teams within the bank to create and publish optimal integration diagrams, component diagrams and deployment diagrams as part of the data center migration and new components setup across EMEA.</li>
-<li>Ensured designed and built systems align with bank and industry security, data, and compliance standards, and respond to audits as needed.</li>
-<li>Assisted users in migrating away from end-of-life (EOL) technologies, driving modernization and system upgrades, to align with continuous infrastructure improvement goals.</li>
-<li>Provided L2 &amp; L3 SME and infrastructure owner level support for complex issue resolution in on-call and live production environment connecting to various electronic stock exchanges in primarily supporting EMEA region and APAC and Americas as needed.</li>
-</ul>
+            <div class="job">
+                <div><span class="job-title">Middleware Architect and Developer</span></div>
+                <div class="job-meta">UBS, Singapore · Dec 2003 – Feb 2010</div>
+                <ul>
+                    <li>Designed TIBCO and IBM MQ routing for mission-critical trade systems and direct market access.</li>
+                    <li>Modernized infrastructure by migrating users away from end-of-life (EOL) technologies.</li>
+                </ul>
+            </div>
 
-<div class="job"><div><span class="job-title">C++ Developer, Module Team Lead and Onsite System Test Engineer</span></div><div class="job-meta">NEC, Japan · Polaris, India · April 2000 – November 2003</div>
-<ul>
-<li>Led and managed teams of 5–6 developers, testers, and build/release engineers.</li>
-<li>Oversaw the full software development lifecycle, including design, coding, code reviews, unit testing, module testing, integration testing, build, and release.</li>
-<li>Served as system integration test engineer in Tokyo, working directly with NEC Financial Business teams during on-site product integration testing.</li>
-<li>Developed and delivered proof-of-concept of 15+ transaction modules for the Global Banking System (GBS) base product.</li>
-<li>Led the development and integration of 100+ transaction modules for Yachiyo Bank’s BankingWeb 21 (GBS v1.6).</li>
-<li>Ensured designed and built systems are in line with bank and industry level security, data and compliance level and answer to audits as needed.</li>
-</ul>
+            <div class="job">
+                <div><span class="job-title">C++ Developer, Module Team Lead</span></div>
+                <div class="job-meta">NEC, Japan · Polaris, India · April 2000 – Nov 2003</div>
+                <ul>
+                    <li>Led teams of 5–6 developers through the full SDLC for Global Banking Systems.</li>
+                    <li>Delivered 100+ transaction modules for Yachiyo Bank’s BankingWeb 21 project in Tokyo.</li>
+                </ul>
+            </div>
         </div>
     </section>
 
@@ -713,24 +687,6 @@ GitHub: <a href="https://github.com/dselva7" rel="noopener noreferrer" target="_
         }
     });
     console.log('Portfolio: Dilli S · 2026');
-
-    document.documentElement.classList.add('js');
-    (function () {
-        var panels = document.querySelectorAll('section.panel');
-        if (!panels.length) return;
-        if (!('IntersectionObserver' in window)) {
-            panels.forEach(function (p) { p.classList.add('is-visible'); });
-            return;
-        }
-        var io = new IntersectionObserver(function (entries) {
-            entries.forEach(function (entry) {
-                if (!entry.isIntersecting) return;
-                entry.target.classList.add('is-visible');
-                io.unobserve(entry.target);
-            });
-        }, { rootMargin: '0px 0px -10% 0px', threshold: 0.12 });
-        panels.forEach(function (p) { io.observe(p); });
-    })();
 </script>
 </body>
 </html>
